@@ -2,6 +2,7 @@ const express = require("express");
 const Joi = require("joi");
 const app = express();
 app.use(express.json());
+const middleware = require("./looger");
 
 // all courses
 const courses = [
@@ -10,6 +11,13 @@ const courses = [
   { id: 3, name: "sheraz" },
   { id: 4, name: "ahmed" },
 ];
+
+// app.use(middleware);
+// app.use((req, res, next) => {
+//   console.log("authenticated");
+// });
+app.use(express.urlencoded());
+app.use(express.static("public"));
 
 // get request all
 app.get("/api/courses", (req, res) => {
