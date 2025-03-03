@@ -16,7 +16,14 @@ const courses = [
 // app.use((req, res, next) => {
 //   console.log("authenticated");
 // });
-app.use(express.urlencoded());
+
+// envirnment variables
+if (app.get("env") === "development") {
+  // app.use(morgan("tiny"));
+  console.log("env");
+}
+// middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // get request all
