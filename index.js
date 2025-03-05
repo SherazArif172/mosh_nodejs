@@ -28,7 +28,8 @@ app.use(express.static("public"));
 
 // get request all
 app.get("/api/courses", (req, res) => {
-  res.send(courses);
+  // res.send(courses);
+  res.render("index", { title: "express js", heading: "heading" });
 });
 
 // get request single id
