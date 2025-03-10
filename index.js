@@ -32,10 +32,15 @@ async function createCourse() {
 createCourse();
 
 async function getCourses() {
-  const course = await Course.find({ name: "husnain", isPublished: true })
+  const course = await Course.find(
+    // { name: "husnain", isPublished: true }
+    { author: /.*sheraz*./i }
+  )
     .limit(10)
+    .or([{ name: "Ali" }, { isPublished: true }])
     .sort({ name: -1 })
     .select({ name: 1, tags: 1 });
+  // .count();
   console.log(course);
 }
 
