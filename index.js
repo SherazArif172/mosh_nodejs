@@ -3,69 +3,71 @@ const Joi = require("joi");
 const app = express();
 const courses = require("./routes/courses");
 const home = require("./routes/home");
+const users = require("./routes/users");
 app.use(express.json());
-const middleware = require("./middleware/looger");
-const mongoose = require("mongoose");
+// const middleware = require("./middleware/looger");
+// const mongoose = require("mongoose");
 
-const courseSchema = new mongoose.Schema({
-  name: String,
-  author: String,
-  tags: [String],
-  date: { type: Date, default: Date.now },
-  isPublished: Boolean,
-});
+// const courseSchema = new mongoose.Schema({
+//   name: String,
+//   author: String,
+//   tags: [String],
+//   date: { type: Date, default: Date.now },
+//   isPublished: Boolean,
+// });
 
-const Course = mongoose.model("Course", courseSchema);
+// const Course = mongoose.model("Course", courseSchema);
 
-async function createCourse() {
-  const course = new Course({
-    name: "husnain",
-    author: "ali hamza",
-    tags: ["ali", "bilal"],
-    isPublished: true,
-  });
+// async function createCourse() {
+//   const course = new Course({
+//     name: "husnain",
+//     author: "ali hamza",
+//     tags: ["ali", "bilal"],
+//     isPublished: true,
+//   });
 
-  // const result = await course.save();
-  // console.log(result);
-}
+//   // const result = await course.save();
+//   // console.log(result);
+// }
 
-createCourse();
+// createCourse();
 
-async function getCourses() {
-  const course = await Course.find(
-    // { name: "husnain", isPublished: true }
-    { author: /.*sheraz*./i }
-  )
-    .limit(10)
-    .or([{ name: "Ali" }, { isPublished: true }])
-    .sort({ name: -1 })
-    .select({ name: 1, tags: 1 });
-  // .count();
-  console.log(course);
-}
+// async function getCourses() {
+//   const course = await Course.find(
+//     // { name: "husnain", isPublished: true }
+//     { author: /.*sheraz*./i }
+//   )
+//     .limit(10)
+//     .or([{ name: "Ali" }, { isPublished: true }])
+//     .sort({ name: -1 })
+//     .select({ name: 1, tags: 1 });
+//   // .count();
+//   console.log(course);
+// }
 
-getCourses();
+// getCourses();
 
-mongoose
-  .connect("mongodb://localhost:27017/playground")
-  .then(() => {
-    console.log("connected");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// mongoose
+//   .connect("mongodb://localhost:27017/playground")
+//   .then(() => {
+//     console.log("connected");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 app.use("api/courses", courses);
+app.use("/api/users", users);
 app.use("/", home);
 
-// envirnment variables
-if (app.get("env") === "development") {
-  // app.use(morgan("tiny"));
-  console.log("env");
-}
-// middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+// // envirnment variables
+// if (app.get("env") === "development") {
+//   // app.use(morgan("tiny"));
+//   console.log("env");
+// }
+// // middleware
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.static("public"));
 
 //port
 const port = process.env.PORT || 3000;
