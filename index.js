@@ -12,7 +12,7 @@ app.use(express.json());
 //   name: String,
 //   author: String,
 //   tags: [String],
-//   date: { type: Date, default: Date.now },
+//   date: { type: Date, default: Date  .now },
 //   isPublished: Boolean,
 // });
 
@@ -47,14 +47,14 @@ app.use(express.json());
 
 // getCourses();
 
-// mongoose
-//   .connect("mongodb://localhost:27017/playground")
-//   .then(() => {
-//     console.log("connected");
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+mongoose
+  .connect("mongodb://localhost:27017/playground")
+  .then(() => {
+    console.log("connected");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 app.use("api/courses", courses);
 app.use("/api/users", users);
@@ -70,7 +70,7 @@ app.use("/", home);
 // app.use(express.static("public"));
 
 //port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 //listen
 app.listen(port, () => {
